@@ -2,13 +2,24 @@ int LED = 13;
 
 void setup() {
   pinMode(LED, OUTPUT);
-  digitalWrite(LED, LOW);
+  
+  Serial.begin(9600);
+  Serial.flush();
+  Serial.println("hello there!");
 }
  
 void loop(){
-  digitalWrite(LED, LOW);
-  delay(1000);
-  digitalWrite(LED, HIGH);
-  delay(1000);
+  char ch;
+
+  if (Serial.available() > 0) {
+    ch = (char) Serial.read();
+  } 
+  
+  if (ch == '1') {
+    digitalWrite(LED, HIGH);
+  } else if (ch == '0') {
+    digitalWrite(LED, LOW);
+  }
+
 }
 
